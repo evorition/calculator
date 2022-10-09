@@ -15,15 +15,21 @@ clearButton.addEventListener("click", clearScreen);
 backspaceButton.addEventListener("click", erase);
 decimalButton.addEventListener("click", addDecimal);
 equalsButton.addEventListener("click", evaluate);
-numberButtons.forEach(button => button.addEventListener("click", getNumber));
-operatorButtons.forEach(op => op.addEventListener("click", getOperator));
+numberButtons.forEach(button => button.addEventListener("click", () => {
+  getNumber(button.value)
+}));
+operatorButtons.forEach(op => op.addEventListener("click", () => {
+  getOperator(op.value)
+}));
 
-function getNumber() {
+document.addEventListener("keydown", e => handleKeyboard(e.key));
+
+function getNumber(value) {
   if (currentDisplay.textContent === "0" || reset) {
     currentDisplay.textContent = "";
     reset = false;
   }
-  currentDisplay.textContent += this.value;
+  currentDisplay.textContent += value;
 }
 
 function addDecimal() {
@@ -38,11 +44,11 @@ function addDecimal() {
   }
 }
 
-function getOperator() {
+function getOperator(value) {
   if (operator && !reset) {
     evaluate();
   }
-  operator = this.value;
+  operator = value;
   operandOne = +currentDisplay.textContent;
   historyDisplay.textContent = `${operandOne} ${operator}`;
   reset = true;
@@ -79,6 +85,20 @@ function erase() {
   }
 }
 
+function handleKeyboard(value) {
+  if (value >= "0" && value <= "9") {
+    getNumber(value);
+  } else if (["+", "-", "*", "/"].includes(value)) {
+    getOperator(value);
+  } else if (value === "Enter") {
+    evaluate();
+  } else if (value === ".") {
+    addDecimal();
+  } else if (value === "Backspace") {
+    erase();
+  }
+}
+
 function add(a, b) {
   return a + b;
 }
@@ -101,7 +121,7 @@ function operate(op, a, b) {
       return add(a, b);
     case "-":
       return subtract(a, b);
-    case "x":
+    case "*":
       return multiply(a, b);
     case "/":
       return divide(a, b);
