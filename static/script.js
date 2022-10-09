@@ -68,10 +68,15 @@ function evaluate() {
     reset = true;
     return;
   }
-  currentDisplay.textContent = operate(operator, operandOne, operandTwo);
+
+  currentDisplay.textContent = round(operate(operator, operandOne, operandTwo));
   historyDisplay.textContent = `${operandOne} ${operator} ${operandTwo} =`;
   operator = "";
   reset = true;
+}
+
+function round(num) {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
 }
 
 function clearScreen() {
