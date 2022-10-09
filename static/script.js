@@ -67,6 +67,7 @@ function evaluate() {
   }
   currentDisplay.textContent = operate(operator, operandOne, operandTwo);
   historyDisplay.textContent = `${operandOne} ${operator} ${operandTwo} =`;
+  operator = "";
   reset = true;
 }
 
