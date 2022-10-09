@@ -4,10 +4,14 @@ let reset = false;
 
 const historyDisplay = document.querySelector("#history");
 const currentDisplay = document.querySelector("#current");
+const clearButton = document.querySelector("#clear");
+const backspaceButton = document.querySelector("#backspace");
 const equalsButton = document.querySelector("#equals");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 
+clearButton.addEventListener("click", clearScreen);
+backspaceButton.addEventListener("click", erase);
 equalsButton.addEventListener("click", evaluate);
 numberButtons.forEach(button => button.addEventListener("click", getNumber));
 operatorButtons.forEach(op => op.addEventListener("click", getOperator));
@@ -44,6 +48,21 @@ function evaluate() {
   currentDisplay.textContent = operate(operator, operandOne, operandTwo);
   historyDisplay.textContent = `${operandOne} ${operator} ${operandTwo} =`;
   reset = true;
+}
+
+function clearScreen() {
+  operandOne = operandTwo = NaN;
+  currentDisplay.textContent = "0";
+  historyDisplay.textContent = ""
+  operator = "";
+  reset = false;
+}
+
+function erase() {
+  currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+  if (currentDisplay.textContent === "") {
+    currentDisplay.textContent = "0";
+  }
 }
 
 function add(a, b) {
