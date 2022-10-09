@@ -21,12 +21,10 @@ button {
 
 #history {
   min-height: 24px;
-  height: auto;
   text-align: right;
 }
 
 #current {
-  word-wrap: break-word;
   font-weight: 700;
   font-size: 48px;
   text-align: right;

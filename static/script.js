@@ -51,7 +51,7 @@ function getOperator(value) {
   if (operator && !reset) {
     evaluate();
   }
-  operator = value;
+  operator = value === "*" ? "x" : value;
   operandOne = +currentDisplay.textContent;
   historyDisplay.textContent = `${operandOne} ${operator}`;
   reset = true;
@@ -64,19 +64,23 @@ function evaluate() {
   }
   operandTwo = +currentDisplay.textContent;
   if (operator === "/" && operandTwo === 0) {
-    currentDisplay.textContent = "Cannot divide by zero";
+    currentDisplay.textContent = "Zero divison";
     reset = true;
     return;
   }
 
-  currentDisplay.textContent = round(operate(operator, operandOne, operandTwo));
+  let retValue = round(operate(operator, operandOne, operandTwo));
+  if (retValue.toString().length >= 10) {
+    retValue = retValue.toExponential(4);
+  }
+  currentDisplay.textContent = retValue;
   historyDisplay.textContent = `${operandOne} ${operator} ${operandTwo} =`;
   operator = "";
   reset = true;
 }
 
 function round(num) {
-  return Math.round((num + Number.EPSILON) * 100) / 100;
+  return Math.round(num * 1e10) / 1e10;
 }
 
 function clearScreen() {
@@ -130,7 +134,7 @@ function operate(op, a, b) {
       return add(a, b);
     case "-":
       return subtract(a, b);
-    case "*":
+    case "x":
       return multiply(a, b);
     case "/":
       return divide(a, b);
