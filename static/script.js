@@ -33,15 +33,15 @@ function getNumber(value) {
 }
 
 function addDecimal() {
-  if (currentDisplay.textContent.includes(".")) {
-    return
-  }
   if (reset) {
     currentDisplay.textContent = "0.";
     reset = false;
-  } else {
-    currentDisplay.textContent += ".";
+    return;
   }
+  if (currentDisplay.textContent.includes(".")) {
+    return
+  }
+  currentDisplay.textContent += ".";
 }
 
 function getOperator(value) {
