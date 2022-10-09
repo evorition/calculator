@@ -64,7 +64,7 @@ function evaluate() {
   }
   operandTwo = +currentDisplay.textContent;
   if (operator === "/" && operandTwo === 0) {
-    currentDisplay.textContent = "Zero divison";
+    alert("Division by zero!");
     reset = true;
     return;
   }
