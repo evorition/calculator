@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  height: 48px;
+  border: none;
+  font-size: 18px;
+}
+
+#main {
+  width: 300px;
+}
+
+#history {
+  min-height: 12px;
+  height: auto;
+  text-align: right;
+}
+
+#current {
+  word-wrap: break-word;
+  font-weight: 700;
+  font-size: 48px;
+  text-align: right;
+}
+
+#buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+}
+
+#clear {
+  grid-column: span 2;
+}
+
+#zero {
+  grid-column: span 2;
+}
+
+.number {
+  font-weight: 700;
+}

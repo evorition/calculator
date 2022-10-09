@@ -29,6 +29,9 @@ function getNumber(value) {
     currentDisplay.textContent = "";
     reset = false;
   }
+  if (currentDisplay.textContent.length === 10) {
+    return;
+  }
   currentDisplay.textContent += value;
 }
 
